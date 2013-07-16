@@ -1,4 +1,10 @@
-peepingpete
+Peeping Pete
 ===========
 
-peeping pete to hunt for your perfect course schedule
+Introduction
+------------
+Peeping Pete helps you to hunt for your perfect course schedule.
+
+Developers
+----------
+Daniel Y Lee
