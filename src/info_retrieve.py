@@ -46,7 +46,6 @@ def parseInput(input):
   else:
     # check: input must have five digits
     if input.__len__() != 5:
-      print "err"
       return None
 
     return (1, None, input)
@@ -57,6 +56,10 @@ def getMypurdue(input):
   Returns a tupe of type (bool: availablilty, str to print if bool is true)
   accepst input returned by parseInput
   """
+  if input == None:
+    print "err: bad input"
+    return None
+
   br = mechanize.Browser()
   # set some headers
   br.set_handle_robots(False)
@@ -87,6 +90,7 @@ def getMypurdue(input):
      print "bad input"
      return []
 
+
   br.submit()
 
   #print br.response().read()
@@ -98,6 +102,10 @@ def getMypurdue(input):
       # all the follwing links must be of some value
       links.append(link)
       #br.back()
+
+  if not links:
+    print "course not found"
+    return None
 
   # visit links and get seats/waitlist seats
   val_all = []
@@ -125,8 +133,22 @@ def getMypurdue(input):
   return vals_clean
 
 def main(argv):
+  ret = []
   for arg in argv:
-    print  getMypurdue(parseInput(arg))
+    ret.append(getMypurdue(parseInput(arg)))
+
+  if ret[0] == None: # getMypurdue couldn't find the course
+    return 
+
+  try:
+    for course in ret:
+      for section in course:
+	print section[0] + ": " + str(section[1])
+  except:
+    print sys.exc_info()[0]
+
+    return 
+
 
 if __name__ == '__main__':
   main(sys.argv[1:])
