@@ -1,0 +1,46 @@
+#!/usr/bin/python
+
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+import time
+
+print "Hello, world!"
+print "This is purduepete/src/mypurdue.py"
+
+print "------------------------------------"
+
+print "task 1: connect to mypurdue using selenium"
+driver=webdriver.Firefox() 			# instance of firefox is used
+driver.get("http://wl.mypurdue.purdue.edu") 	# open mypurdue
+time.sleep(2) 					# wait for page to load
+
+assert "Login" in driver.title
+
+print "------------------------------------"
+print "task 2: Login to mypurdue"
+driver.find_element_by_id("user").clear()		# clear id 
+driver.find_element_by_id("user").send_keys("lee832")	# type id
+
+driver.find_element_by_id("pass").clear()		# clear pass
+driver.find_element_by_id("pass").send_keys("Lucille@322")# type pass (i need to encrypt this
+driver.find_element_by_id("pass").send_keys(Keys.RETURN)# submit form
+
+time.sleep(2) 					# wait for page to load
+
+assert "myPurdue" in driver.title
+
+
+print "------------------------------------"
+print "task 3: Go to \"Look up Classes\""
+driver.find_element_by_link_text("Academic").click()	# click on academic tab
+time.sleep(1) 					# wait for page to load
+driver.find_element_by_link_text("Look Up Classes").click()	# click on Look up classes
+time.sleep(1) 					# wait for page to load
+
+#driver.switch_to_frame(1) # MUST SWTICH FRAME!!
+
+#driver.find_element_by_css_selector("select[id=\"term_input_id\"]").send_keys(Keys.ARROW_DOWN)
+
+
+
+
